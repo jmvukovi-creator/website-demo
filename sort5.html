@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sort a HTML Table Alphabetically</title>
+<style>
+table {
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th {
+  cursor: pointer;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2
+}
+</style>
+</head>
+<body>
+
+<p><strong>Click the headers to sort the table.</strong></p>
+<p>The first time you click, the sorting direction is ascending (A to Z).</p>
+<p>Click again, and the sorting direction will be descending (Z to A):</p>
+
+<table id="myTable">
+  <tr>
+    <th onclick="sortTable(0)">Rank</th>
+
+    <th onclick="sortTable(1)">Team</th>
+    <th onclick="sortTable(2)">Conference</th>
+    <th onclick="sortTable(3)">Final Grade</th>
+    <th onclick="sortTable(4)">SOS Grade</th>
+    <th onclick="sortTable(5)">Efficiency Grade</th>
+    <th onclick="sortTable(6)">Competitive Grade</th>
+    <th onclick="sortTable(7)">Power Grade</th>
+    <th onclick="sortTable(8)">Quality Grade</th>
+    <th onclick="sortTable(9)">A Wins</th>
+    <th onclick="sortTable(10)">A Losses</th>
+    <th onclick="sortTable(11)">B Wins</th>
+    <th onclick="sortTable(12)">B Losses</th>
+    <th onclick="sortTable(13)">C Wins</th>
+    <th onclick="sortTable(14)">C Losses</th>
+    <th onclick="sortTable(15)">D Wins</th>
+    <th onclick="sortTable(16)">D Losses</th>
+    <th onclick="sortTable(17)">F Wins</th>
+    <th onclick="sortTable(18)">F Losses</th>
+    <th onclick="sortTable(19)">Wins</th>
+    <th onclick="sortTable(20)">Losses</th>
+
+    <th onclick="sortTable(21)">Home Wins</th>
+    <th onclick="sortTable(22)">Home Losses</th>
+    <th onclick="sortTable(23)">Road Wins</th>
+    <th onclick="sortTable(24)">Road Losses</th>
+    <th onclick="sortTable(25)">Neutral Wins</th>
+    <th onclick="sortTable(26)">Neutral Losses</th>
+
+      
+ 
+  </tr>
+  <tr>
+    <td>Berglunds snabbkop</td>
+    <td>Sweden</td>
+  </tr>
+  <tr>
+    <td>North/South</td>
+    <td>UK</td>
+  </tr>
+  <tr>
+    <td>Alfreds Futterkiste</td>
+    <td>Germany</td>
+  </tr>
+  <tr>
+    <td>Koniglich Essen</td>
+    <td>Germany</td>
+  </tr>
+  <tr>
+    <td>Magazzini Alimentari Riuniti</td>
+    <td>Italy</td>
+  </tr>
+  <tr>
+    <td>Paris specialites</td>
+    <td>France</td>
+  </tr>
+  <tr>
+    <td>Island Trading</td>
+    <td>UK</td>
+  </tr>
+  <tr>
+    <td>Laughing Bacchus Winecellars</td>
+    <td>Canada</td>
+  </tr>
+</table>
+
+<script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>
